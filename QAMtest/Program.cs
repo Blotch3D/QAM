@@ -14,35 +14,32 @@ namespace QAMtest
         }
 
         /// <summary>
-        /// Note: This does NOT include acquisition or tracking!
+        /// Note: This does NOT include acquisition, tracking, AGC, or multipath deconvolution!
         /// 
         /// This shows how to...
         /// Create a QAM object with a specified constellation
         /// Optimize the constellation
         /// Visualize the constellation
-        /// Convert data to states
+        /// Convert data to states (upsample them to implement integration)
         /// Convert states to RF signal
-        /// Convert RF signal to states (assuming its been acquired and tracked)
+        /// simulate transceiving by adding noise and convolution (multipath)
+        /// (reception also reuires acquisition, tracking, deconvolution, and AGC, which must be done by app)
+        /// Convert RF signal to states (downsample them to unimplement integration)
         /// Convert states to data
-        /// Show BER stats for a given noise level
+        /// Show BER stats
         /// 
         /// Integration is not implemented in the QAM class because it's easy to implement at the
-        /// state level, thus: To send integration, repeat each state the number of times you are
-        /// integrating. To receive integration, average successive states. For example, to integrate
-        /// by 2, repeat each state twice in the transmission. Then in the received states, combine
-        /// (average) each pair of two consecutive states into one.
+        /// app level simply by upsampling the states before conversion to signal, and downsampling
+        /// the states after conversion from signal.
         /// 
         /// </summary>
         /// <param name="noise"></param>
-        /// <param name="useFec"></param>
         /// <param name="numWordBits"></param>
         /// <param name="constellationTriangles"></param>
-        /// <param name="numQuietSamples"></param>
-        /// <param name="deconvolutionImpulseAmplitude"></param>
         public static void TestQam(
-            double noise = 0.17,
-            int numWordBits = 3,
-            bool constellationTriangles = false)
+            double noise = 0.2,
+            int numWordBits = 4,
+            bool constellationTriangles = true)
         {
             var maxWordVal = (int)(Math.Pow(2, numWordBits) - .5);
 
