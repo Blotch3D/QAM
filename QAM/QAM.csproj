@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <RootNamespace>Digiproc.QAM</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Kelly Loum</Authors>
+    <Company>Blotch</Company>
+    <Description>A QAM modulator/demodulater</Description>
+    <Copyright>© 2021 Kelly Loum</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Blotch3D" Version="1.0.5" />
+  </ItemGroup>
+
+</Project>
