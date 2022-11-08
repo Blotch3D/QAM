@@ -20,11 +20,11 @@ namespace QAMtest
         /// Create a QAM object with a specified constellation
         /// Optimize the constellation
         /// Visualize the constellation
-        /// Convert data to states (upsample them to implement integration)
+        /// Convert data to states (and upsample them to implement integration)
         /// Convert states to RF signal
         /// simulate transceiving by adding noise and convolution (multipath)
         /// (reception also reuires acquisition, tracking, deconvolution, and AGC, which must be done by app)
-        /// Convert RF signal to states (downsample them to unimplement integration)
+        /// Convert RF signal to states (and downsample them to unimplement integration)
         /// Convert states to data
         /// Show BER stats
         /// 
@@ -72,10 +72,10 @@ namespace QAMtest
                 // convert data to QAM states
                 var states = qam.SymbolsToStates(data);
 
+                // at this point we could upsample the states to implement integration
+
                 // convert states to an RF signal
                 var signal = qam.StatesToSignal(states);
-
-                // at this point we could upsample the signal to implement integration
 
                 // simulate the radio transceiver (i.e. damage the signal)
                 for (int n = 0; n < signal.Count; n++)
@@ -86,10 +86,10 @@ namespace QAMtest
 
                 // note: you would need to acquire, track, and AGC the signal at this point
 
-                // at this point we could downsample the signal to remove the integration
-
                 // convert signal to states
                 var rcvdStates = qam.SignalToStates(signal);
+
+                // at this point we could downsample the rcvdStates to remove integration
 
                 // convert states to symbols
                 var (rcvdData, avgDeviationSqr, maxDeviationSqr) = qam.StatesToSymbols(rcvdStates);
