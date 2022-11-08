@@ -40,7 +40,7 @@ namespace QAMtest
             int numWordBits = 6,
             bool constellationTriangles = false,
             double noise = 0.7,
-            int integration = 2)
+            int integration = 1)
         {
             var maxWordVal = (int)(Math.Pow(2, numWordBits) - .5);
 
@@ -63,6 +63,8 @@ namespace QAMtest
             Console.WriteLine("Optimization complete");
             qam.Visualize();
 
+            Console.WriteLine($"noise:{noise}  integration:{integration}");
+
             var totalBits = 0;
             var totalBitErrors = 0;
 
@@ -80,7 +82,7 @@ namespace QAMtest
                 var states = qam.SymbolsToStates(data);
 
                 // at this point we could upsample the states to implement integration
-                qam.UpsampleStates(states, integration);
+                states = qam.UpsampleStates(states, integration);
 
                 // convert states to an RF signal
                 var signal = qam.StatesToSignal(states);
@@ -119,7 +121,7 @@ namespace QAMtest
                         }
                     }
                 }
-                Console.Write($"noise:{noise}  BER = {totalBitErrors / (double)totalBits}                               \r");
+                Console.Write($"BER = {totalBitErrors / (double)totalBits}                               \r");
             }
         }
 

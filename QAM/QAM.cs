@@ -246,12 +246,6 @@ namespace Blotch.Qam
                 downStates.Add(c);
             }
 
-            foreach (var s in states)
-            {
-                downStates.Add(s);
-                downStates.Add(s);
-            }
-
             return downStates;
         }
 
