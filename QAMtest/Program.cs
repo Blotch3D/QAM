@@ -37,9 +37,10 @@ namespace QAMtest
         /// <param name="numWordBits"></param>
         /// <param name="constellationTriangles"></param>
         public static void TestQam(
-            double noise = 0.2,
-            int numWordBits = 4,
-            bool constellationTriangles = true)
+            int numWordBits = 6,
+            bool constellationTriangles = false,
+            double noise = 0.7,
+            int integration = 2)
         {
             var maxWordVal = (int)(Math.Pow(2, numWordBits) - .5);
 
@@ -48,11 +49,17 @@ namespace QAMtest
 
             // create a custom constellation
             qam.CreateConstellation(maxWordVal + 1, constellationTriangles, .5, .5);
+
+            // Normalize pwr (so we can compare different constellations)
+            var pwr = qam.CalcAveragePower();
+            qam.Scale(Math.Sqrt(1/pwr));
+            pwr = qam.CalcAveragePower();
+
             qam.Visualize();
 
             // optimize it
             Console.WriteLine("Optimizing symbol layout...");
-            qam.OptimizeSymbolLayout(5);
+            qam.OptimizeSymbolLayout();
             Console.WriteLine("Optimization complete");
             qam.Visualize();
 
@@ -73,6 +80,7 @@ namespace QAMtest
                 var states = qam.SymbolsToStates(data);
 
                 // at this point we could upsample the states to implement integration
+                qam.UpsampleStates(states, integration);
 
                 // convert states to an RF signal
                 var signal = qam.StatesToSignal(states);
@@ -89,7 +97,8 @@ namespace QAMtest
                 // convert signal to states
                 var rcvdStates = qam.SignalToStates(signal);
 
-                // at this point we could downsample the rcvdStates to remove integration
+                // downsample the rcvdStates to remove integration
+                rcvdStates = qam.DownsampleStates(rcvdStates, integration);
 
                 // convert states to symbols
                 var (rcvdData, avgDeviationSqr, maxDeviationSqr) = qam.StatesToSymbols(rcvdStates);

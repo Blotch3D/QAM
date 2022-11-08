@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Blotch;
 using System.Threading;
+using System.Numerics;
 
 namespace Blotch.Qam
 {
@@ -31,7 +32,7 @@ namespace Blotch.Qam
     /// </summary>
     public class QAM
     {
-        public Dictionary<int, (double Real, double Imaginary)> Constellation = null;
+        public Dictionary<int, Complex> Constellation = null;
         /// <summary>
         /// See class description for details. This can be changed dynamically.
         /// </summary>
@@ -43,72 +44,72 @@ namespace Blotch.Qam
         // Following are some typical constellations you can pass to the constructor. (You can also specify custom
         // constellations, or create one programmatically with CreateConstellation.
 
-        public static Dictionary<int, (double, double)> QAM8_circular_7_1 = new Dictionary<int, (double, double)>()
+        public static Dictionary<int, Complex> QAM8_circular_7_1 = new Dictionary<int, Complex>()
             {
-                { 3, (1, 0) },
-                { 5, (0.6234898018587336, 0.7818314824680298) },
-                { 4, (-0.22252093395631434, 0.9749279121818236) },
-                { 6, (-0.900968867902419, 0.43388373911755823) },
-                { 2, (-0.9009688679024191, -0.433883739117558) },
-                { 0, (-0.2225209339563146, -0.9749279121818236) },
-                { 1, (0.6234898018587334, -0.7818314824680299) },
-                { 7, (0, 0) },
+                { 3, new Complex(1, 0) },
+                { 5, new Complex(0.6234898018587336, 0.7818314824680298) },
+                { 4, new Complex(-0.22252093395631434, 0.9749279121818236) },
+                { 6, new Complex(-0.900968867902419, 0.43388373911755823) },
+                { 2, new Complex(-0.9009688679024191, -0.433883739117558) },
+                { 0, new Complex(-0.2225209339563146, -0.9749279121818236) },
+                { 1, new Complex(0.6234898018587334, -0.7818314824680299) },
+                { 7, new Complex(0, 0) },
         };
 
-        public static Dictionary<int, (double, double)> QAM16_rectangular = new Dictionary<int, (double, double)>()
+        public static Dictionary<int, Complex> QAM16_rectangular = new Dictionary<int, Complex>()
             {
-                { 15, (-3, 3) },
-                { 7, (-1, 3) },
-                { 5, (1, 3) },
-                { 13, (3, 3) },
-                { 14, (-3, 1) },
-                { 6, (-1, 1) },
-                { 4, (1, 1) },
-                { 12, (3, 1) },
-                { 10, (-3, -1) },
-                { 2, (-1, -1) },
-                { 0, (1, -1) },
-                { 8, (3, -1) },
-                { 11, (-3, -3) },
-                { 3, (-1, -3) },
-                { 1, (1, -3) },
-                { 9, (3, -3) },
+                { 15, new Complex(-3, 3) },
+                { 7, new Complex(-1, 3) },
+                { 5, new Complex(1, 3) },
+                { 13, new Complex(3, 3) },
+                { 14, new Complex(-3, 1) },
+                { 6, new Complex(-1, 1) },
+                { 4, new Complex(1, 1) },
+                { 12, new Complex(3, 1) },
+                { 10, new Complex(-3, -1) },
+                { 2, new Complex(-1, -1) },
+                { 0, new Complex(1, -1) },
+                { 8, new Complex(3, -1) },
+                { 11, new Complex(-3, -3) },
+                { 3, new Complex(-1, -3) },
+                { 1, new Complex(1, -3) },
+                { 9, new Complex(3, -3) },
         };
 
-        public static Dictionary<int, (double, double)> QAM32_rectangular = new Dictionary<int, (double, double)>()
+        public static Dictionary<int, Complex> QAM32_rectangular = new Dictionary<int, Complex>()
             {
-                { 21, (-3, 5) },
-                { 17, (-1, 5) },
-                { 1, (1, 5) },
-                { 5, (3, 5) },
-                { 7, (-5, 3) },
-                { 23, (-3, 3) },
-                { 19, (-1, 3) },
-                { 3, (1, 3) },
-                { 4, (3, 3) },
-                { 20, (5, 3) },
-                { 6, (-5, 1) },
-                { 22, (-3, 1) },
-                { 18, (-1, 1) },
-                { 2, (1, 1) },
-                { 0, (3, 1) },
-                { 16, (5, 1) },
-                { 14, (-5, -1) },
-                { 30, (-3, -1) },
-                { 26, (-1, -1) },
-                { 10, (1, -1) },
-                { 8, (3, -1) },
-                { 24, (5, -1) },
-                { 12, (-5, -3) },
-                { 28, (-3, -3) },
-                { 27, (-1, -3) },
-                { 11, (1, -3) },
-                { 9, (3, -3) },
-                { 25, (5, -3) },
-                { 29, (-3, -5) },
-                { 31, (-1, -5) },
-                { 15, (1, -5) },
-                { 13, (3, -5) },
+                { 21, new Complex(-3, 5) },
+                { 17, new Complex(-1, 5) },
+                { 1, new Complex(1, 5) },
+                { 5, new Complex(3, 5) },
+                { 7, new Complex(-5, 3) },
+                { 23, new Complex(-3, 3) },
+                { 19, new Complex(-1, 3) },
+                { 3, new Complex(1, 3) },
+                { 4, new Complex(3, 3) },
+                { 20, new Complex(5, 3) },
+                { 6, new Complex(-5, 1) },
+                { 22, new Complex(-3, 1) },
+                { 18, new Complex(-1, 1) },
+                { 2, new Complex(1, 1) },
+                { 0, new Complex(3, 1) },
+                { 16, new Complex(5, 1) },
+                { 14, new Complex(-5, -1) },
+                { 30, new Complex(-3, -1) },
+                { 26, new Complex(-1, -1) },
+                { 10, new Complex(1, -1) },
+                { 8, new Complex(3, -1) },
+                { 24, new Complex(5, -1) },
+                { 12, new Complex(-5, -3) },
+                { 28, new Complex(-3, -3) },
+                { 27, new Complex(-1, -3) },
+                { 11, new Complex(1, -3) },
+                { 9, new Complex(3, -3) },
+                { 25, new Complex(5, -3) },
+                { 29, new Complex(-3, -5) },
+                { 31, new Complex(-1, -5) },
+                { 15, new Complex(1, -5) },
+                { 13, new Complex(3, -5) },
         };
 
 
@@ -118,7 +119,7 @@ namespace Blotch.Qam
         /// </summary>
         /// <param name="constellation">A Dictionary that relates each symbol (Key) to its corresponding constellation
         /// point (Value). A constellation point is a (Real amplitude,Imaginary amplitude) pair.</param>
-        public QAM(Dictionary<int, (double Real, double Imaginary)> constellation)
+        public QAM(Dictionary<int, Complex> constellation)
         {
             if (constellation == null)
             {
@@ -190,11 +191,11 @@ namespace Blotch.Qam
         public void Scale(double factor)
         {
             var c = Constellation;
-            c = new Dictionary<int, (double Real, double Imaginary)>();
+            c = new Dictionary<int, Complex>();
             for (int n = 0; n < Constellation.Count; n++)
             {
                 var p = Constellation[n];
-                c.Add(n, (p.Real * factor, p.Imaginary * factor));
+                c.Add(n, p * factor);
             }
             Constellation = c;
         }
@@ -212,6 +213,48 @@ namespace Blotch.Qam
             }
             return power / Constellation.Count;
         }
+
+        public List<Complex> UpsampleStates(List<Complex> states, int count = 2)
+        {
+            var upStates = new List<Complex>();
+
+            foreach (var s in states)
+            {
+                for(int i = 0; i < count; i++)
+                {
+                    upStates.Add(s);
+                }
+            }
+
+            return upStates;
+        }
+        public List<Complex> DownsampleStates(List<Complex> states, int count = 2)
+        {
+            var downStates = new List<Complex>();
+
+            int n = 0;
+            for (int i = 0; i < states.Count / count; i++)
+            {
+                var c = new Complex();
+
+                for(int j = 0; j < count; j++)
+                {
+                    c += states[n++];
+                }
+                c /= count;
+
+                downStates.Add(c);
+            }
+
+            foreach (var s in states)
+            {
+                downStates.Add(s);
+                downStates.Add(s);
+            }
+
+            return downStates;
+        }
+
 
         /// <summary>
         /// Creates a rectangular or triangular constellation given how many points. Symbol assignments are not
@@ -235,7 +278,7 @@ namespace Blotch.Qam
             int pntNum = 0;
 
             // create the oversized triangular grid
-            var points = new List<(double x, double y)>();
+            var points = new List<Complex>();
             for (var y = -dim; y < dim; y++)
             {
                 var horizOffset = 0.0;
@@ -246,7 +289,7 @@ namespace Blotch.Qam
 
                 for (var x = (int)-dim; x < dim; x++)
                 {
-                    points.Add((x + horizOffset + offsetX, vertSeparation * y + offsetY));
+                    points.Add(new Complex(x + horizOffset + offsetX, vertSeparation * y + offsetY));
                 }
             }
 
@@ -255,8 +298,8 @@ namespace Blotch.Qam
             // picture that's OK
             points.Sort((a, b) =>
             {
-                var aDistSqr = a.x * a.x + a.y * a.y;
-                var bDistSqr = b.x * b.x + b.y * b.y;
+                var aDistSqr = a.Real * a.Real + a.Imaginary * a.Imaginary;
+                var bDistSqr = b.Real * b.Real + b.Imaginary * b.Imaginary;
                 if (aDistSqr < bDistSqr) return -1;
                 if (aDistSqr > bDistSqr) return 1;
                 return 0;
@@ -284,7 +327,7 @@ namespace Blotch.Qam
         public void OptimizeSymbolLayout(int numSeeds = 50, int numFinalIterations = 50, double severityRadius = 2)
         {
             var bestFlipsSeverity = 1e200;
-            var newConstellation = new Dictionary<int, (double, double)>();
+            var newConstellation = new Dictionary<int, Complex>();
 
             for (int seed = 0; seed < numSeeds; seed++)
             {
@@ -306,7 +349,7 @@ namespace Blotch.Qam
                     newConstellation.Clear();
                     foreach(var pnt in Constellation)
                     {
-                        newConstellation.Add(pnt.Key, (pnt.Value.Real, pnt.Value.Imaginary));
+                        newConstellation.Add(pnt.Key, new Complex(pnt.Value.Real, pnt.Value.Imaginary));
                     }
                 }
             }
@@ -349,7 +392,7 @@ namespace Blotch.Qam
 
            // Various initializations
            var rnd = new Random(rndSeed);
-            List<(double Real, double Imaginary)> Points;
+            List<Complex> Points;
             Points = Constellation.Values.ToList();
             var flippedBitsSeverity = new List<double>();
 
@@ -437,7 +480,7 @@ namespace Blotch.Qam
             }
 
             // Create a new constellation with the new symbol layout
-            var optConst = new Dictionary<int, (double Real, double Imaginary)>();
+            var optConst = new Dictionary<int, Complex>();
             for (int n = 0; n < NumPoints; n++)
             {
                 optConst.Add(Symbols[n], Points[n]);
@@ -487,7 +530,7 @@ namespace Blotch.Qam
         /// <param name="radius"></param>
         /// <returns></returns>
         List<Dictionary<int, double>> GetNearbyPointInfoList(
-            Dictionary<int, (double Real, double Imaginary)> constellation = null, double radius = 2)
+            Dictionary<int, Complex> constellation = null, double radius = 2)
         {
             if(constellation == null)
             {
@@ -556,7 +599,7 @@ namespace Blotch.Qam
         /// <returns>A tuple, where the first item is the list of demodulated symbols, the second item is an average of
         /// the square of each state's deviation from the closest constellation point, and the third item is the square
         /// of the largest deviation from its closest constellation point.</returns>
-        public (List<int>, double, double) StatesToSymbols(List<(double Real, double Imaginary)> states, int start = 0, int end = -1)
+        public (List<int>, double, double) StatesToSymbols(List<Complex> states, int start = 0, int end = -1)
         {
             if (end < 0) end = states.Count;
 
@@ -570,7 +613,7 @@ namespace Blotch.Qam
                 var state = states[n];
 
                 var bestDifSqr = 1e100;
-                KeyValuePair<int, (double Real, double Imaginary)> bestPoint = new KeyValuePair<int, (double Real, double Imaginary)>();
+                KeyValuePair<int, Complex> bestPoint = new KeyValuePair<int, Complex>();
 
                 foreach(var point in Constellation)
                 {
@@ -640,7 +683,7 @@ namespace Blotch.Qam
         /// <param name="symbols">Data must first be encoded into symbols with the DataToSymbols method, then those
         /// symbols are passed as this parameter. No symbol can be outside the bounds of the constellation.</param>
         /// <returns>Returns a list of (real, imaginary) pairs, one for each input symbol</returns>
-        public List<(double Real, double Imaginary)> SymbolsToStates(List<int> symbols)
+        public List<Complex> SymbolsToStates(List<int> symbols)
         {
             return symbols.Select(s => Constellation[s]).ToList();
         }
@@ -651,7 +694,7 @@ namespace Blotch.Qam
         /// <param name="states">A sequence of QAM states, where each state defines the real and imaginary
         /// amplitudes of a complex carrier wave.</param>
         /// <returns>A signal suitable for transmission, where there are four samples per wave.</returns>
-        public List<double> StatesToSignal(List<(double Real, double Imaginary)> states, int startIdx = 0, int endIdx = -1, List<double> signalBuf = null)
+        public List<double> StatesToSignal(List<Complex> states, int startIdx = 0, int endIdx = -1, List<double> signalBuf = null)
         {
             if(endIdx < 0)
             {
@@ -688,7 +731,7 @@ namespace Blotch.Qam
         /// <param name="end">Offset of last state plus one</param>
         /// <returns>A list of consecutive states, where each state is the (real, imaginary) pair for the given quarter
         /// wav</returns>
-        public List<(double Real, double Imaginary)> SignalToStates(List<double> signal, double gain = 1, int startIdx = 0, int endIdx = -1)
+        public List<Complex> SignalToStates(List<double> signal, double gain = 1, int startIdx = 0, int endIdx = -1)
         {
             var signalIdx = startIdx;
 
@@ -701,15 +744,12 @@ namespace Blotch.Qam
             startIdx /= 4;
             endIdx /= 4;
 
-            var states = new List<(double Real, double Imaginary)>();
+            var states = new List<Complex>();
 
 
             for (int stateIdx = startIdx; stateIdx <= endIdx; stateIdx++)
             {
-                (double Real, double Imaginary) state;
-
-                state.Real = (signal[signalIdx] - signal[signalIdx+2]) / 2;
-                state.Imaginary = (signal[signalIdx+1] - signal[signalIdx+3]) / 2;
+                var state = new Complex((signal[signalIdx] - signal[signalIdx + 2]) / 2, (signal[signalIdx + 1] - signal[signalIdx + 3]) / 2);
 
                 states.Add(state);
 
